@@ -1,0 +1,4 @@
+# setup
+root_dir: /path/dir/to/store/results/  # (str) root dir to store results
+point_cloud_path: path/to/point_cloud.las  # (str) necessary to retrieve last returns, should have same crs as sensor position file
+sensor_position_path: path/to/sensor_position.gpkg  # (str, any format readable by geopandas) path to sensor position file, needs to have columns "gps_time", "X", "Y", "Z"

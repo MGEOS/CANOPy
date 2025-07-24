@@ -1,0 +1,4 @@
+# setup
+root_dir: .\example # (str) root dir to store results
+point_cloud_path: .\example\data\2024_08_22_MID904_sel.laz # (str)
+sensor_position_path: .\example\sensor_position_reconstruction\sensor_position_reconstruction.gpkg # (str, any format readable by geopandas) path to sensor position file, needs to have columns "gps_time", "X", "Y", "Z"

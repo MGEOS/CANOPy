@@ -1,0 +1,3 @@
+[submodule "geos_utils"]
+	path = geos_utils
+	url = https://github.com/MGEOS/geos_utils

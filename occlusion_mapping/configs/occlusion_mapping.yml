@@ -1,0 +1,41 @@
+# setup
+root_dir: /path/dir/to/store/results/  # root dir to store results
+epsg_code: 32632  # (int) epsg code for input data (needs to be all in the same cooordinate system), units should be provided in meters
+point_cloud_path: path/to/point_cloud.las  # necessary to calculate filled voxels
+rays_path: path/to/rays.npy  # .npy file containting arrays of 1) start_point 2) end_point (np.array with size (n, 3) containing x,y,z ), projection should be same as point_cloud.path
+
+
+# area of interest (xy)
+aoi: True  # if True: use aoi xyz_bounds (either provided directly or retrieved from polygon), else (False): calculate xyz bounds from point cloud
+aoi_kwargs:
+  xyz_bounds: null # [[x_min, y_min, z_min],[x_max, y_max, z_max]]  # [optional] if provided: the xyz_bounds can be calculated in advance with point_clouds_xyz_range(las_paths) for consistency among multiple point clouds, else: null
+  aoi_polygon:
+    aoi_path: path/to/aoi.shp  # if provided and not xyz_bounds: use path/to/polygon.shp polygon as aoi, else: null. needs to be in project crs system
+    mask: True  # if True: use path/to/aoi.shp to mask result, else: False
+    
+
+# filter pulses by location: pulse origin outside path/to/filter/polyon.shp are not taken into account (e.g. to mask pulses emitted during turns of airborn vehicles)
+fitler_rays_by_location: True  # if True: use path/to/filter/polyon.shp to filter, else: all pulses are taken into account
+fitler_rays_by_location_kwargs: 
+  filter_polygon_path: path/to/filter/polyon.shp  # else: null
+
+
+# normalize height
+normalize_height: True  # if True, normalize height of classified voxel space with path/to/raster.tif
+normalize_height_kwargs:
+    dtm_path: path/to/raster.tif  # else: null
+
+
+# occlusion classification of voxel space
+voxel_traversal_kwargs:
+  params:
+    cell_size: 0.1  # (meters) cell size of voxel grid
+    height_buffer: 2.0  # (meters) optional: add height buffer to aoi z_max for voxel classification, if 0: aoi z_max is used
+  classification_values:  # encoding of voxel space (can range [-127, 128])
+    unobserved: 0
+    occluded: 1
+    empty: 2
+    filled: 3
+          
+
+

@@ -1,0 +1,11 @@
+# setup
+root_dir: /path/dir/to/store/results/  # (str) root dir to store results
+epsg_code: 32632  # (int) epsg code for input data (needs to be in the same corodiante system), units should be provided in meters
+point_cloud_path: path/to/point_cloud.las  # (str) necessary to calculate filled voxels
+
+# reconstruction 
+sensor_position_reconstruction_kwargs:
+  positions_per_second: 100  # (int, > 0) number of sensor positions to reconstruct per second of recorded data, by default 100. Recommended range [1,200].
+  traj_number_min: 5  # (int) minimum number of laser pulse trajectories required to reconstruct a sensor position, by default 5. Used to ensure statistical robustness.
+  distance_max: 0.005  # (float, unit in meters) maximum allowed distance between a reconstructed sensor position and the closest reconstructed trajectory to adopt the gps_time, by default 0.005. Used for filtering positions with poor reconstruction.
+  extrapolate: True  # (bool) whether to extrapolate sensor positions to cover the entire time range of the point cloud, by default True.
