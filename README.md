@@ -1,4 +1,4 @@
-# CANOPy - Canopy Attentuation and Occlusion in Python
+# CANOPy - Canopy Attenuation and Occlusion in Python
 
 The CANOPy module contains various usefull point cloud data processing functions in python.
 
