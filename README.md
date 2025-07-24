@@ -6,7 +6,7 @@ The CANOPy module contains various usefull point cloud data processing functions
 ## Tools
 1. [occlusion mapping](./occlusion_mapping/tutorial.ipynb)
     * perform occlusion mapping using solely a point cloud
-2. [geospatial utils](./geos_utils)
+2. [geospatial utils](https://github.com/MGEOS/geos_utils)
     * collection of various geospatial processing and data management tools, included as a submodule
 
 
