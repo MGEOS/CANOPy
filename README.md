@@ -12,7 +12,7 @@ The CANOPy module contains various usefull point cloud data processing functions
 
 
 ## Dependencies
-The CANOPy package requires the GEOS_utils repository as a submodule.
+The CANOPy package requires the geos_utils repository as a submodule.
 
 
 
