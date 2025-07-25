@@ -36,4 +36,4 @@ _First release with improvements implemented towards [Gassilloud et al. (2025)](
    * README.md documentation
    * jupyter notebook tutorial
    * function docstrings
-   * optional extrapolation of sensor positions to cover `gps_time` range of point cloud in [sensor position reconstruction](./sensor_position_reconstruction.py)
+   * optional extrapolation of sensor positions to cover `gps_time` range of point cloud in [sensor_position_reconstruction.py](./sensor_position_reconstruction.py)
