@@ -1,10 +1,10 @@
 # CANOPy - Canopy Attenuation and Occlusion in Python
 
-The CANOPy module contains various usefull point cloud data processing functions in python.
+The CANOPy module contains various point cloud data processing functions in python.
 
 
 ## Tools
-1. [occlusion mapping](./occlusion_mapping/tutorial.ipynb)
+1. [occlusion mapping](./occlusion_mapping)
     * perform occlusion mapping using solely a point cloud
 2. [geospatial utils](https://github.com/MGEOS/geos_utils)
     * collection of various geospatial processing and data management tools, included as a submodule
