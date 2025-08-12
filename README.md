@@ -26,6 +26,23 @@ conda install numpy numba laszip laspy lazrs-python fiona shapely rasterio pypro
 ```
 
 
+## Citation
+If you find this useful for your research, please consider citing our paper:
+
+```bibtex
+@article{gassilloud2025occlusion,
+  title={Occlusion mapping reveals the impact of flight and sensing parameters on vertical forest structure exploration with cost-effective UAV based laser scanning},
+  author={Gassilloud, Matthias and Koch, Barbara and Goeritz, Anna},
+  journal={International Journal of Applied Earth Observation and Geoinformation},
+  volume={139},
+  pages={104493},
+  year={2025},
+  publisher={Elsevier}
+}
+```
+
+
+
 ## License
 Licensed under the [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).
 

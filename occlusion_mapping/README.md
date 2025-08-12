@@ -19,6 +19,22 @@ This module contains the main functions to perform occlusion mapping using solel
 A [tutorial.ipynb](./tutorial.ipynb) is provided as a detailed guide, including a link to example data and exemplary visualizations.
 
 
+## Citation
+If you find this useful for your research, please consider citing our paper:
+
+```bibtex
+@article{gassilloud2025occlusion,
+  title={Occlusion mapping reveals the impact of flight and sensing parameters on vertical forest structure exploration with cost-effective UAV based laser scanning},
+  author={Gassilloud, Matthias and Koch, Barbara and Goeritz, Anna},
+  journal={International Journal of Applied Earth Observation and Geoinformation},
+  volume={139},
+  pages={104493},
+  year={2025},
+  publisher={Elsevier}
+}
+```
+
+
 ## Changelog
 
 ### [0.1.0] - 2025-07-22
