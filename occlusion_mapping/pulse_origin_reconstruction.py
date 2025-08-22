@@ -20,7 +20,6 @@ References:
 
 ### import modules
 import sys
-import time
 import numpy as np
 import geopandas as gpd
 import argparse
@@ -183,7 +182,6 @@ def reconstruct_pulse_origin(point_cloud_path, sensor_position_path, rays_storag
     ### get unique time stamp values
 
     print("Sort point cloud, count unique values.")  # status
-    start = time.time()
     point_cloud = point_cloud[np.lexsort((point_cloud[:,4],point_cloud[:,0]))]  # sort array by gps time (last arg), return no (first arg)
     val, c = np.unique(point_cloud[:,0], return_counts=True)  # unique time stamp values
 
