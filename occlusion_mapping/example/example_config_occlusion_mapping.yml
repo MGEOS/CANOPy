@@ -23,7 +23,7 @@ fitler_rays_by_location_kwargs:
 # normalize height
 normalize_height: True  # if True, normalize height of classified voxel space with path/to/raster.tif
 normalize_height_kwargs:
-    dtm_path: ..\example\data\dtm.tif # L:\EcoSense\2024_04_30_L2\3_eval\dtm_test_full.tif # path/to/raster.tif  # else: null
+    dtm_path: ..\example\data\dtm.tif # else: null
 
 
 # occlusion classification of voxel space
