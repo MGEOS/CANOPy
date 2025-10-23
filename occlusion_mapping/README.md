@@ -35,14 +35,14 @@ author = {Matthias Gassilloud and Barbara Koch and Anna Göritz}
 
 
 ## Occlusion mapping modules
-[Occlusion Mapping Config File](./occlusion_mapping.yml): User parameters required as input.
-[Occlusion Mapping Module](./occlusion_mapping.py): Perform occlusion mapping using sensor position data and a point cloud
-[Config](./config.py): Validation of user parameters and generatin of config file
-[Example](./example/): Working example with tutorial.
+  * [Occlusion Mapping Config File](./occlusion_mapping.yml): User parameters required as input.
+  * [Occlusion Mapping Module](./occlusion_mapping.py): Perform occlusion mapping using sensor position data and a point cloud
+  * [Config](./config.py): Validation of user parameters and generatin of config file
+  * [Example](./example/): Working example with tutorial.
 
 additionally for separate pulse origin reconstruction:
-[Pulse Origin Reconstruction Config File](./pulse_origin_reconstruction.yml): User parameters required as input.
-[Pulse Origin Reconstruction Module](./pulse_origin_reconstruction.py): Reconstructing the pulse origin and last returns to represent beam trajectories.
+  * [Pulse Origin Reconstruction Config File](./pulse_origin_reconstruction.yml): User parameters required as input.
+  * [Pulse Origin Reconstruction Module](./pulse_origin_reconstruction.py): Reconstructing the pulse origin and last returns to represent beam trajectories.
 
 <br>
 
