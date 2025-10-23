@@ -1,6 +1,8 @@
-# CANOPy Sensor Poisition Reconstruction
+# CANOPy - Sensor Position Reconstruction
 
 This module contains the main functions to perform sensor position reconstruction using solely a point cloud. It is an improved version of [Gassilloud et al. (2025)](https://www.sciencedirect.com/science/article/pii/S1569843225001402), changes are noted [here](#changelog). Licensed under the [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).
+
+<br>
 
 
 ## Content
@@ -9,6 +11,7 @@ This module contains the main functions to perform sensor position reconstructio
 2. [Tutorial](#tutorial)
 3. [Changelog](#changelog)
 
+<br>
 
 
 ## Citation
@@ -28,6 +31,8 @@ author = {Matthias Gassilloud and Barbara Koch and Anna Göritz}
 }
 ```
 
+<br>
+
 
 ## Sensor Position Reconstruction modules
 [Config File](./sensor_position_reconstruction.yml): User parameters required as input.
@@ -35,16 +40,19 @@ author = {Matthias Gassilloud and Barbara Koch and Anna Göritz}
 [Config](./config.py): Validation of user parameters and generatin of config file
 [Example](./example/): Working example with tutorial.
 
+<br>
 
 
 ## Installation
 Follow the installation instructions [here](../README.md#installation).
 
+<br>
 
 
 ## Tutorial
 A [tutorial.ipynb](./example/tutorial.ipynb) is provided as a detailed guide, including a link to example data and exemplary visualizations.
 
+<br>
 
 
 ## Changelog

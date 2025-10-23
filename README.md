@@ -41,7 +41,6 @@ conda install numpy numba laszip laspy lazrs-python fiona shapely rasterio pypro
 <br>
 
 
-
 ## Citation
 If you find this useful for your research, please consider citing our paper:
 

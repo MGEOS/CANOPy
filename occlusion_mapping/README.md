@@ -1,7 +1,8 @@
-# CANOPy Occlusion Mapping
+# CANOPy - Occlusion Mapping
 
 This module contains the main functions to perform occlusion mapping using solely a point cloud. It is an improved version of [Gassilloud et al. (2025)](https://www.sciencedirect.com/science/article/pii/S1569843225001402), changes are noted [here](#changelog). Licensed under the [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).
 
+<br>
 
 
 ## Content
@@ -10,6 +11,7 @@ This module contains the main functions to perform occlusion mapping using solel
 2. [Tutorial](#tutorial)
 3. [Changelog](#changelog)
 
+<br>
 
 
 ## Citation
@@ -29,6 +31,8 @@ author = {Matthias Gassilloud and Barbara Koch and Anna Göritz}
 }
 ```
 
+<br>
+
 
 ## Occlusion mapping modules
 [Occlusion Mapping Config File](./occlusion_mapping.yml): User parameters required as input.
@@ -40,15 +44,19 @@ additionally for separate pulse origin reconstruction:
 [Pulse Origin Reconstruction Config File](./pulse_origin_reconstruction.yml): User parameters required as input.
 [Pulse Origin Reconstruction Module](./pulse_origin_reconstruction.py): Reconstructing the pulse origin and last returns to represent beam trajectories.
 
+<br>
+
 
 ## Installation
 Follow the installation instructions [here](../README.md#installation).
 
+<br>
 
 
 ## Tutorial
 A [tutorial.ipynb](./example/tutorial.ipynb) is provided as a detailed guide, including a link to example data and exemplary visualizations.
 
+<br>
 
 
 ## Changelog
