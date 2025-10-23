@@ -471,10 +471,10 @@ def main():
 
 
     ### plot example
-    plot_example(vox_array=vox_ray_class, xyz_bounds=xyz_bounds, cfg=cfg, classification="unobserved", write=True)
-    plot_example(vox_array=vox_ray_class, xyz_bounds=xyz_bounds, cfg=cfg, classification="occluded", write=True)
-    plot_example(vox_array=vox_ray_class, xyz_bounds=xyz_bounds, cfg=cfg, classification="empty", write=True)
-    plot_example(vox_array=vox_ray_class, xyz_bounds=xyz_bounds, cfg=cfg, classification="filled", write=True)
+    plot_example(vox_array=vox_ray_class, xyz_bounds=xyz_bounds, cfg=cfg, classification="unobserved", show=False)
+    plot_example(vox_array=vox_ray_class, xyz_bounds=xyz_bounds, cfg=cfg, classification="occluded", show=False)
+    plot_example(vox_array=vox_ray_class, xyz_bounds=xyz_bounds, cfg=cfg, classification="empty", show=False)
+    plot_example(vox_array=vox_ray_class, xyz_bounds=xyz_bounds, cfg=cfg, classification="filled", show=False)
     
 
     ### match DTM to regular voxel grid for height normalization
