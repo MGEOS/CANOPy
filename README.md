@@ -11,19 +11,24 @@ The CANOPy module contains various point cloud data processing functions in pyth
 
 
 
-## Dependencies
-The CANOPy package requires the geos_utils repository as a submodule.
+## Download and Dependencies
+The CANOPy package requires the geos_utils repository as a submodule. Download this repository with:
+
+```bash
+git clone --recursive https://github.com/MGEOS/CANOPy
+```
 
 
 
 ## Installation
-Recommended to use python=3.10 or higher.
+To run this code we recommended to use python=3.10 or higher.
 
 ```bash
 conda create -n canopy python=3.10
 conda activate canopy
 conda install numpy numba laszip laspy lazrs-python fiona shapely rasterio pyproj pandas geopandas gdal ipykernel pyyaml
 ```
+
 
 
 ## Citation

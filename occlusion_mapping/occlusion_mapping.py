@@ -25,6 +25,7 @@ import time
 import numpy as np
 import numpy.ma as ma
 from osgeo import gdal
+gdal.UseExceptions()
 import argparse
 import json
 import matplotlib.pyplot as plt
@@ -43,9 +44,8 @@ from CANOPy.geos_utils.geodata_tb.raster_tb import read_raster_array, crop_raste
 from CANOPy.geos_utils.algorithms_tb.voxel_traversal.ray_vox_trav_3d_nb import ray_vox_trav_nb
 from CANOPy.geos_utils.numba_tb.numba_tb import nb_float_to_string
 from CANOPy.geos_utils.plotting_tb.plotting_tb import change_spine, set_size
-from CANOPy.occlusion_mapping.configs.config import create_occlusion_mapping_config
-from CANOPy.occlusion_mapping.pulse_origin_reconstruction import extend_trajectory_to_height
-
+from CANOPy.occlusion_mapping.config import create_occlusion_mapping_config
+from CANOPy.occlusion_mapping.pulse_origin_reconstruction import extend_trajectory_to_height, reconstruct_pulse_origin
 
 def top_view(vox_array, cfg, classification, normalize=True):
     '''calculate class percentage for top view'''
@@ -65,7 +65,7 @@ def side_view(vox_array, cfg, classification):
     '''west_east side view'''
     return np.mean(vox_array == cfg["voxel_traversal_kwargs"]["classification_values"][f"{classification}"], axis=1) * 100  # not normalized
 
-def plot_example(vox_array, xyz_bounds, cfg, classification="occluded", normalized=False, write=False):
+def plot_example(vox_array, xyz_bounds, cfg, classification="occluded", normalized=False, show=False):
 
 
     ### create title/file string
@@ -135,12 +135,15 @@ def plot_example(vox_array, xyz_bounds, cfg, classification="occluded", normaliz
     cbar.set_label("Percentage of voxels (%)", size=cbar_labelsize)
 
 
-    if write:
-        fpath = os.path.join(cfg["root_dir"], "voxel_classification", f"top_view_{classification}{norm_str}.png")
-        fig.savefig(fpath, dpi=300)
+    fpath = os.path.join(cfg["voxel_classification"], f"top_view_{classification}{norm_str}.png")
+    fig.savefig(fpath, dpi=300)
 
     ### plot
-    plt.show(block=False)
+    if show:
+        plt.show(block=False)
+        plt.close()
+    else:
+        plt.close()
 
 
 
@@ -186,12 +189,15 @@ def plot_example(vox_array, xyz_bounds, cfg, classification="occluded", normaliz
     cbar.set_label("Percentage of voxels (%)", size=cbar_labelsize)
 
 
-    if write:
-        fpath = os.path.join(cfg["root_dir"], "voxel_classification", f"side_view_{classification}{norm_str}.png")
-        fig.savefig(fpath, dpi=300)
+    fpath = os.path.join(cfg["voxel_classification"], f"side_view_{classification}{norm_str}.png")
+    fig.savefig(fpath, dpi=300)
 
     ### plot
-    plt.show(block=False)
+    if show:
+        plt.show(block=False)
+        plt.close()
+    else:
+        plt.close()
 
 
 
@@ -234,13 +240,16 @@ def plot_example(vox_array, xyz_bounds, cfg, classification="occluded", normaliz
     cbar.set_label("Percentage of voxels (%)", size=cbar_labelsize)
 
 
-    if write:
-        fpath = os.path.join(cfg["root_dir"], "voxel_classification", f"side_sliced_view_{classification}{norm_str}.png")
-        fig.savefig(fpath, dpi=300)
+    fpath = os.path.join(cfg["voxel_classification"], f"side_sliced_view_{classification}{norm_str}.png")
+    fig.savefig(fpath, dpi=300)
 
     ### plot
-    plt.show(block=False)
-
+    if show:
+        plt.show(block=False)
+        plt.close()
+    else:
+        plt.close()
+        
 def occlusion_classification(cfg):
     """Occlusion classification of a 3D voxel space.
     
@@ -258,8 +267,8 @@ def occlusion_classification(cfg):
         - voxel_traversal_kwargs.params.boundary: Spatial boundary for voxelization
         - voxel_traversal_kwargs.params.nb_cell: Number of cells in each dimension
         - voxel_traversal_kwargs.classification_values: Classification encoding values
-        - rays_path: Path to file containing ray start and end coordinates
-        - point_cloud_path: Path to the .las point cloud file
+        - sensor_position_path: Path to sensor position file, needs to have columns "gps_time", "X", "Y", "Z".
+        - point_cloud_path: Path to the .las/.laz point cloud file
         - fitler_rays_by_location: Boolean flag for filtering rays by location
         - fitler_rays_by_location_kwargs: Parameters for ray filtering
         
@@ -275,7 +284,7 @@ def occlusion_classification(cfg):
     Notes
     -----
     The classification process involves several steps:
-    1. Loading ray trajectories from the rays_path file
+    1. Recosntrucing ray trajectories from a point cloud and sensor trajectory
     2. Optionally filtering rays by location using a polygon
     3. Extending ray trajectories to ground level to model occlusion
     4. Applying voxel traversal to observed and occluded rays
@@ -294,11 +303,14 @@ def occlusion_classification(cfg):
     xyz_bounds = np.array(cfg["voxel_traversal_kwargs"]["params"]["boundary"])
     nb_cell = np.array(cfg["voxel_traversal_kwargs"]["params"]["nb_cell"])
 
-    
-    ### read trajectory start and end point
-    with open(cfg["rays_path"], 'rb') as f:
-        start_coordinate = np.load(f)
-        end_coordinate = np.load(f)
+    point_cloud_path = cfg["point_cloud_path"]
+    sensor_position_path = cfg["sensor_position_path"]
+
+
+    ### reconstruct pulse origin
+    start_coordinate, end_coordinate, _ = reconstruct_pulse_origin(point_cloud_path=point_cloud_path,
+                                            sensor_position_path=sensor_position_path,
+                                            rays_storage_path=None)
 
 
     ### checks
@@ -422,7 +434,6 @@ def main():
     normalize_height = cfg["normalize_height"]
     
 
-
     ### occlusion classification
     vox_ray_class, xyz_bounds = occlusion_classification(cfg)
 
@@ -529,11 +540,6 @@ def main():
         vox_ray_class_norm, xyz_bounds_norm = normalize_vox_array(vox_ray_class, dtm, xyz_bounds, cell_size)
 
 
-        ### if aoi polygon mask check only for no data values within aoi
-        if use_aoi_mask:  # mask dtm with polygon
-            vox_ray_class_norm = ma.masked_array(vox_ray_class_norm, mask=np.broadcast_to(aoi_mask, vox_ray_class_norm.shape))
-
-
         ### store
         np.savez(cfg['voxel_result_normalized_height'], vox_ray_class_norm)
 
@@ -544,10 +550,10 @@ def main():
 
 
         ### plot example
-        plot_example(vox_array=vox_ray_class_norm, xyz_bounds=xyz_bounds_norm, cfg=cfg, classification="unobserved", normalized=True, write=True)
-        plot_example(vox_array=vox_ray_class_norm, xyz_bounds=xyz_bounds_norm, cfg=cfg, classification="occluded", normalized=True, write=True)
-        plot_example(vox_array=vox_ray_class_norm, xyz_bounds=xyz_bounds_norm, cfg=cfg, classification="empty", normalized=True, write=True)
-        plot_example(vox_array=vox_ray_class_norm, xyz_bounds=xyz_bounds_norm, cfg=cfg, classification="filled", normalized=True, write=True)
+        plot_example(vox_array=vox_ray_class_norm, xyz_bounds=xyz_bounds_norm, cfg=cfg, classification="unobserved", normalized=True, show=False)
+        plot_example(vox_array=vox_ray_class_norm, xyz_bounds=xyz_bounds_norm, cfg=cfg, classification="occluded", normalized=True, show=False)
+        plot_example(vox_array=vox_ray_class_norm, xyz_bounds=xyz_bounds_norm, cfg=cfg, classification="empty", normalized=True, show=False)
+        plot_example(vox_array=vox_ray_class_norm, xyz_bounds=xyz_bounds_norm, cfg=cfg, classification="filled", normalized=True, show=False)
         
 
         print("Occlusion mapping complete.")  # status

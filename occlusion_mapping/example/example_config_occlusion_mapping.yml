@@ -1,8 +1,8 @@
 # setup
-root_dir: .\example # root dir to store results
+root_dir: ..\example # root dir to store results
 epsg_code: 32632  # (int) epsg code for input data (needs to be all in the same cooordinate system), units should be provided in meters
-point_cloud_path: .\example\data\2024_08_22_MID904_sel.laz # necessary to calculate filled voxels
-rays_path: .\example\pulse_origin_reconstruction\rays.npy # # .npy file containting arrays of 1) start_point 2) end_point (np.array with size (n, 3) containing x,y,z ), projection should be same as point_cloud.path
+point_cloud_path: ..\example\data\2024_08_22_MID904_sel.laz # (str) should have same crs as sensor position file
+sensor_position_path: ..\example\sensor_position_reconstruction\sensor_position_reconstruction.gpkg # (str, any format readable by geopandas) path to sensor position file, needs to have columns "gps_time", "X", "Y", "Z"
 
 
 # area of interest (xy)
@@ -10,20 +10,20 @@ aoi: True  # if True: use aoi xyz_bounds (either provided directly or retrieved 
 aoi_kwargs:
   xyz_bounds: null # [[x_min, y_min, z_min],[x_max, y_max, z_max]]  # [optional] if provided: the xyz_bounds can be calculated in advance with point_clouds_xyz_range(las_paths) for consistency among multiple point clouds, else: null
   aoi_polygon:
-    aoi_path: .\example\data\area_of_interest.shp # path/to/aoi.shp  # if provided and not xyz_bounds: use path/to/polygon.shp polygon as aoi, else: null. needs to be in project crs system
+    aoi_path: ..\example\data\area_of_interest.shp # path/to/aoi.shp  # if provided and not xyz_bounds: use path/to/polygon.shp polygon as aoi, else: null. needs to be in project crs system
     mask: True  # if True: use path/to/aoi.shp to mask result, else: False
     
 
 # filter pulses by location: pulse origin outside path/to/filter/polyon.shp are not taken into account (e.g. to mask pulses emitted during turns of airborn vehicles)
 fitler_rays_by_location: True  # if True: use path/to/filter/polyon.shp to filter, else: all pulses are taken into account
 fitler_rays_by_location_kwargs: 
-  filter_polygon_path: .\example\data\filter_turns.shp # else: null
+  filter_polygon_path: ..\example\data\filter_turns.shp # else: null
 
 
 # normalize height
 normalize_height: True  # if True, normalize height of classified voxel space with path/to/raster.tif
 normalize_height_kwargs:
-    dtm_path: .\example\data\dtm.tif # L:\EcoSense\2024_04_30_L2\3_eval\dtm_test_full.tif # path/to/raster.tif  # else: null
+    dtm_path: ..\example\data\dtm.tif # L:\EcoSense\2024_04_30_L2\3_eval\dtm_test_full.tif # path/to/raster.tif  # else: null
 
 
 # occlusion classification of voxel space

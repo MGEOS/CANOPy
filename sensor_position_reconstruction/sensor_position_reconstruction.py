@@ -4,8 +4,8 @@ LiDAR sensor position reconstruction.
 author: Matthias Gassilloud
 date: 03.06.2025
 --------------------------
-This module implements algorithms for reconstructing UAV LiDAR sensor positions 
-from a point cloud by reconstructing trajectories from multiple-return laser pulses.
+This module reconstructs (airborne) LiDAR sensor positions from a point cloud by
+reconstructing trajectories from multiple-return laser pulses.
 
 The algorithms are an improved version of Gassilloud et al. (2025) [1]. The docstrings were
 partially completed by the Claude 3.7 Sonnet large language model (Anthropic, 2024).
@@ -17,6 +17,7 @@ References:
 """
 
 ### import modules
+import os
 import sys
 import numpy as np
 from numba import jit, prange
@@ -28,14 +29,14 @@ import geopandas as gpd
 
 ### include modules from parent directories
 from pathlib import Path
-current_dir = Path(__file__).parent.parent.parent
+current_dir = Path(__file__).parent.parent
 if str(current_dir) not in sys.path:
     sys.path.append(str(current_dir))
 
 from CANOPy.geos_utils.numba_tb.numba_tb import nb_mean_axis_0, nb_median_axis_0, nb_unique_axis0, nb_float_to_string
 from CANOPy.geos_utils.algorithms_tb.closest_points.closest_points import closest_points_between_lines, closest_point_between_point_and_segment
 from CANOPy.geos_utils.geodata_tb.point_cloud_tb import read_las
-from CANOPy.occlusion_mapping.configs.config import create_sensor_position_reconstruction_config
+from CANOPy.sensor_position_reconstruction.config import create_sensor_position_reconstruction_config
 
 
 @jit(nopython=True, parallel={"setitem":False}, error_model='numpy')
@@ -78,12 +79,11 @@ def closest_points_from_trajectories(traj_start_point, traj_end_point, closest_p
         
     Notes
     -----
-    This function is optimized with Numba's just-in-time compilation and parallel processing
-    to efficiently handle large numbers of trajectories.
+    This function is optimized with numba.
     """
 
 
-    ### Checks
+    ### checks
     if traj_start_point.shape[0] != traj_end_point.shape[0]:
         raise ValueError("Input trajectories must have the same number of points")
     
@@ -94,12 +94,12 @@ def closest_points_from_trajectories(traj_start_point, traj_end_point, closest_p
         raise ValueError("Points must have 3 dimensions (x, y, z)")
     
 
-    ### Preallocate array for closest points
+    ### preallocate array for closest points
     number_closest_points = traj_start_point.shape[0] - 1  # number of closest points
     closest_points = np.full((number_closest_points, 2*3 + 1), np.nan, dtype=np.float64)  # closest point ptA (xyz), ptB (xyz), distance - empty array to store results
 
 
-    ### Loop through each pair of consecutive trajectories
+    ### loop through each pair of consecutive trajectories
     for idx in prange(number_closest_points):
         ptA, ptB, dist = closest_points_function_njit(traj_start_point[idx], traj_end_point[idx], traj_start_point[idx+1], traj_end_point[idx+1], clampAll=True)
         
@@ -128,7 +128,7 @@ def closest_points_from_trajectories_example_usage():
     -----
     This is for demonstration and testing purposes only. The function generates a
     large number of points (1,000,000) to demonstrate the performance capabilities
-    of the closest_points_from_trajectories function with the Numba optimization.
+    of the closest_points_from_trajectories function with numba.
     """
     
     n_points = 1000000
@@ -593,7 +593,8 @@ def reconstruct_uav_sensor_trajectory(point_cloud_path, sensor_position_path, ep
     plt.xlabel("Closest distance (meter)")
     plt.ylabel(f"Number instances / {len(bins)-1} bins (auto)")
     plt.legend()
-    plt.show(block=False)
+    plt.savefig(os.path.join(os.path.dirname(sensor_position_path), "min_dist.png"))  # save
+    plt.close()
 
 
     ### filter by min distance

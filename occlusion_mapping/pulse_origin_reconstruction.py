@@ -31,7 +31,7 @@ current_dir = Path(__file__).parent.parent.parent
 if str(current_dir) not in sys.path:
     sys.path.append(str(current_dir))
 
-from CANOPy.occlusion_mapping.configs.config import create_pulse_origin_reconstruction_config
+from CANOPy.occlusion_mapping.config import create_pulse_origin_reconstruction_config
 from CANOPy.geos_utils.geodata_tb.point_cloud_tb import read_las
 
 
@@ -237,8 +237,8 @@ def reconstruct_pulse_origin(point_cloud_path, sensor_position_path, rays_storag
 
     ### optionally store as np array
 
-    print("Store results.")
     if rays_storage_path is not None:
+        print("Store results.")
 
         with open(rays_storage_path, 'wb') as f:
             np.save(f, start_coordinate)

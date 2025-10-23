@@ -1,6 +1,5 @@
 import sys
 import os
-import warnings
 import yaml
 from pathlib import Path
 import numpy as np
@@ -15,63 +14,6 @@ from CANOPy.geos_utils.data_management.data_management_tb import check_file_exis
 from CANOPy.geos_utils.geodata_tb.point_cloud_tb import point_clouds_xyz_range
 from CANOPy.geos_utils.algorithms_tb.voxel_traversal.ray_vox_trav_3d_nb import vox_aoi
 
-
-def create_sensor_position_reconstruction_config(config_file):
-
-
-    ### read yml   
-    with open(config_file, 'r') as stream:
-        config = yaml.safe_load(stream)
-    
-    cfg = {}
-   
-    for k, v in config.items():  # copy
-        cfg[k] = v
-
-
-    ### check files
-    check_dir_exists(cfg["root_dir"])
-    check_file_exists(cfg["point_cloud_path"])
-
-
-    ### check crs args
-    try:
-        crs = CRS.from_epsg(cfg['epsg_code'])
-    except:
-        print(f"{cfg['epsg_code']} does not seem to be valid")
-
-    try:
-        unit = crs.linear_units
-        if not unit.lower() in ('metre', 'meter', 'm'):
-            raise Exception
-    except:
-        print(f"Unit: '{unit}' of crs needs to be metric.")
-        
-
-    ### path management
-    base_dir = os.path.join(cfg["root_dir"], "sensor_position_reconstruction")
-    mkdir_if_missing(base_dir)
-    cfg['position_reconstruction'] = os.path.join(base_dir, 'sensor_position_reconstruction.gpkg')
-
-
-    ### check reconstruction args
-    if cfg["sensor_position_reconstruction_kwargs"]["positions_per_second"] <= 0:
-        raise ValueError("Positions per second cannot be <= 0.")
-    
-    if cfg["sensor_position_reconstruction_kwargs"]["positions_per_second"] > 200:
-        warnings.warn("Ensure you have enough trajectories per second to reconstruct > 200 sensor positions per second.")
-
-    if cfg["sensor_position_reconstruction_kwargs"]["traj_number_min"] <= 0:
-        raise ValueError("Minimum trajectories cannot be <= 0.")
-    
-    if cfg["sensor_position_reconstruction_kwargs"]["distance_max"] < 0:
-        raise ValueError("Maximum distance between trajectory and reconstructed sensor position cannot be < 0.")
-
-    if 0 < cfg["sensor_position_reconstruction_kwargs"]["distance_max"] <= 0.001:
-        warnings.warn("Very small maximum distance between trajectory and reconstructed sensor position, some positions might be filtered out.")
-
-
-    return cfg
 
 def create_pulse_origin_reconstruction_config(config_file):
 
@@ -115,7 +57,7 @@ def create_occlusion_mapping_config(config_file):
 
     ### check files
     check_dir_exists(cfg["root_dir"])
-    check_file_exists(cfg["rays_path"])
+    check_file_exists(cfg["sensor_position_path"])
     check_file_exists(cfg["point_cloud_path"])
 
 
@@ -136,6 +78,7 @@ def create_occlusion_mapping_config(config_file):
     ### path management
     base_dir = os.path.join(cfg["root_dir"], "voxel_classification")
     mkdir_if_missing(base_dir)
+    cfg["voxel_classification"] = base_dir
     cfg['voxel_result'] = os.path.join(base_dir, 'result.npz')
     cfg['metadata_result'] = os.path.join(base_dir, 'metadata_result.json')
 

@@ -1,38 +1,54 @@
 # CANOPy Occlusion Mapping
 
-This module contains the main functions to perform occlusion mapping using solely a point cloud. It is an improved version of [Gassilloud et al. (2025)](https://www.sciencedirect.com/science/article/pii/S1569843225001402), changes are noted [here](#changelog).
+This module contains the main functions to perform occlusion mapping using solely a point cloud. It is an improved version of [Gassilloud et al. (2025)](https://www.sciencedirect.com/science/article/pii/S1569843225001402), changes are noted [here](#changelog). Licensed under the [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).
+
 
 
 ## Content
-1. [Occlusion mapping modules](#occlusion-mapping-modules)
+1. [Citation](#citation)
+2. [Occlusion mapping modules](#occlusion-mapping-modules)
 2. [Tutorial](#tutorial)
 3. [Changelog](#changelog)
 
 
-## Occlusion mapping modules
-1. [Sensor Position Reconstruction](./sensor_position_reconstruction.py): Reconstructing LiDAR sensor position data from a point cloud.
-2. [Pulse Origin Reconstruction](./pulse_origin_reconstruction.py): Reconstructing the pulse origin of laser pulses and beam trajectories using the reconstructed sensor position.
-3. [Occlusion Mapping](./occlusion_mapping.py): Perform occlusion mapping with the reconstructed rays.
-
-
-## Tutorial
-A [tutorial.ipynb](./tutorial.ipynb) is provided as a detailed guide, including a link to example data and exemplary visualizations.
-
 
 ## Citation
-If you find this useful for your research, please consider citing our paper:
+ If you find this tool usefull, please consider citing our paper:
 
 ```bibtex
 @article{gassilloud2025occlusion,
-  title={Occlusion mapping reveals the impact of flight and sensing parameters on vertical forest structure exploration with cost-effective UAV based laser scanning},
-  author={Gassilloud, Matthias and Koch, Barbara and Goeritz, Anna},
-  journal={International Journal of Applied Earth Observation and Geoinformation},
-  volume={139},
-  pages={104493},
-  year={2025},
-  publisher={Elsevier}
+title = {Occlusion mapping reveals the impact of flight and sensing parameters on vertical forest structure exploration with cost-effective UAV based laser scanning},
+journal = {International Journal of Applied Earth Observation and Geoinformation},
+volume = {139},
+pages = {104493},
+year = {2025},
+issn = {1569-8432},
+doi = {https://doi.org/10.1016/j.jag.2025.104493},
+url = {https://www.sciencedirect.com/science/article/pii/S1569843225001402},
+author = {Matthias Gassilloud and Barbara Koch and Anna Göritz}
 }
 ```
+
+
+## Occlusion mapping modules
+[Occlusion Mapping Config File](./occlusion_mapping.yml): User parameters required as input.
+[Occlusion Mapping Module](./occlusion_mapping.py): Perform occlusion mapping using sensor position data and a point cloud
+[Config](./config.py): Validation of user parameters and generatin of config file
+[Example](./example/): Working example with tutorial.
+
+additionally for separate pulse origin reconstruction:
+[Pulse Origin Reconstruction Config File](./pulse_origin_reconstruction.yml): User parameters required as input.
+[Pulse Origin Reconstruction Module](./pulse_origin_reconstruction.py): Reconstructing the pulse origin and last returns to represent beam trajectories.
+
+
+## Installation
+Follow the installation instructions [here](../README.md#installation).
+
+
+
+## Tutorial
+A [tutorial.ipynb](./example/tutorial.ipynb) is provided as a detailed guide, including a link to example data and exemplary visualizations.
+
 
 
 ## Changelog

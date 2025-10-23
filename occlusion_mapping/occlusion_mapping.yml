@@ -1,8 +1,8 @@
 # setup
 root_dir: /path/dir/to/store/results/  # root dir to store results
 epsg_code: 32632  # (int) epsg code for input data (needs to be all in the same cooordinate system), units should be provided in meters
-point_cloud_path: path/to/point_cloud.las  # necessary to calculate filled voxels
-rays_path: path/to/rays.npy  # .npy file containting arrays of 1) start_point 2) end_point (np.array with size (n, 3) containing x,y,z ), projection should be same as point_cloud.path
+point_cloud_path: path/to/point_cloud.las  # (str) should have same crs as sensor position file
+sensor_position_path: path/to/sensor_position.gpkg  # (str, any format readable by geopandas) path to sensor position file, needs to have columns "gps_time", "X", "Y", "Z"
 
 
 # area of interest (xy)
