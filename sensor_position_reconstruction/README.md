@@ -37,7 +37,7 @@ author = {Matthias Gassilloud and Barbara Koch and Anna Göritz}
 ## Sensor Position Reconstruction modules
   * [Config File](./sensor_position_reconstruction.yml): User parameters required as input.
   * [Sensor Position Reconstruction](./sensor_position_reconstruction.py): Reconstructing LiDAR sensor position data from a point cloud.
-  * [Config](./config.py): Validation of user parameters and generatin of config file
+  * [Config](./config.py): Validation of user parameters and generatin of config file.
   * [Example](./example/): Working example with tutorial.
 
 <br>
