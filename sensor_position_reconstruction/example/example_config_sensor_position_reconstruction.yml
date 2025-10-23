@@ -1,6 +1,6 @@
 # setup
 root_dir: ..\example # (str) root dir to store results
-epsg_code: 32632  # (int) epsg code for input data (needs to be in the same corodiante system), units should be provided in meters
+epsg_code: 32632  # (int) epsg code for input data (needs to be in the same coordinate system), units should be provided in meters
 point_cloud_path: ..\example\data\2024_08_22_MID904_sel.laz # (str)
 
 # reconstruction 
