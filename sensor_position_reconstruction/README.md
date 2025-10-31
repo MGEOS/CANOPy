@@ -8,8 +8,9 @@ This module contains the main functions to perform sensor position reconstructio
 ## Content
 1. [Citation](#citation)
 2. [Sensor Position Reconstruction modules](#sensor-position-reconstruction-modules)
-2. [Tutorial](#tutorial)
-3. [Changelog](#changelog)
+3. [Installation](#installation)
+4. [Tutorial](#tutorial)
+5. [Changelog](#changelog)
 
 <br>
 

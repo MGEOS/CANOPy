@@ -8,8 +8,9 @@ This module contains the main functions to perform occlusion mapping using solel
 ## Content
 1. [Citation](#citation)
 2. [Occlusion mapping modules](#occlusion-mapping-modules)
-2. [Tutorial](#tutorial)
-3. [Changelog](#changelog)
+3. [Installation](#installation)
+4. [Tutorial](#tutorial)
+5. [Changelog](#changelog)
 
 <br>
 
