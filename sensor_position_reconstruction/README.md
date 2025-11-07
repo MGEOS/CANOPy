@@ -62,6 +62,10 @@ A [tutorial.ipynb](./example/tutorial.ipynb) is provided as a detailed guide, in
 
 _First release with improvements implemented towards [Gassilloud et al. (2025)](https://www.sciencedirect.com/science/article/pii/S1569843225001402)_
 
+#### Changed
+   * number of sensor positions defines the time interval in which sensor positions are calculated. changed from fixed calculation of interval to user defined arguments in [sensor_position_reconstruction.py](./sensor_position_reconstruction.py)
+   * sensor positions are calculated as the median of closest points instead of the mean of closest points, for better robustness towards outliers in [sensor_position_reconstruction.py](./sensor_position_reconstruction.py)
+
 #### Added
    * configuration with .yaml files
    * user argument validation and error handling
