@@ -119,6 +119,9 @@ def create_occlusion_mapping_config(config_file):
         cfg["aoi_kwargs"]["xyz_bounds"] = xyz_bounds
 
 
+    xyz_bounds[2,2] += cfg["voxel_traversal_kwargs"]["params"]["height_buffer"]  # add optional height buffer
+
+
     ### check vox trav args
     cell_size = cfg["voxel_traversal_kwargs"]["params"]["cell_size"]
     if cell_size <= 0:
