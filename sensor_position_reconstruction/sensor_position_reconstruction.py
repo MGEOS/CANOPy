@@ -274,11 +274,6 @@ def point_cloud_multiple_return_first_last(point_cloud_path):
     val, c = np.unique(point_cloud[:,0], return_counts=True)  # unique time stamp values
 
 
-    ### checks
-    if np.any(c >= 10):
-        raise ValueError("Each individual pulse requires an unique gps_time. However, unique gps_time values from loaded point cloud have >= 10 returns. This might happen due to a precision loss of gps_time, e.g. when the point cloud was previously stored from cloudcompare.")
-
-
     ### exclude single returns
     print("Extend pulses with multiple returns")  # status
     mask_counts = c >= 2  # only multiple returns
