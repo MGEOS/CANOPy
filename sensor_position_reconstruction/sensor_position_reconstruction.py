@@ -613,15 +613,15 @@ def reconstruct_uav_sensor_trajectory(point_cloud_path, sensor_position_path, ep
     if extrapolate:
         assert sensor_position.shape[0] >= 2  # assert at least 2 sensor positions reconstructed
         if time_min_max[0] < sensor_position[0,0]:
-            print("Extrapolate to start position.")
-            first_position = extrapolate_position_by_time(time=time_min_max[0],
+            print("Extrapolate to start position - 1e-06.")
+            first_position = extrapolate_position_by_time(time=time_min_max[0] - 1e-06,
                                  A=sensor_position[0],
                                  B=sensor_position[1])
             sensor_position = np.vstack((first_position, sensor_position))
 
         if time_min_max[1] > sensor_position[-1,0]:
-            print("Extrapolate to last position.")
-            last_position = extrapolate_position_by_time(time=time_min_max[1],
+            print("Extrapolate to last position + 1e-06.")
+            last_position = extrapolate_position_by_time(time=time_min_max[1] +  1e-06,
                                  A=sensor_position[-2],
                                  B=sensor_position[-1])
             sensor_position = np.vstack((sensor_position, last_position))
