@@ -61,7 +61,7 @@ A [tutorial.ipynb](./example/tutorial.ipynb) is provided as a detailed guide, in
 <br>
 
 
-### [0.1.1] - 2025-11-21
+### [0.1.1] - 2026-03-12
 
 #### Changed
    * extend `gps_time` range by adding a small buffer (1e-06) for extrapolation of sensor positions
