@@ -62,6 +62,9 @@ A [tutorial.ipynb](./example/tutorial.ipynb) is provided as a detailed guide, in
 
 ## Changelog
 
+<br>
+
+
 ### [0.1.0] - 2025-07-22
 
 _First release with improvements implemented towards [Gassilloud et al. (2025)](https://www.sciencedirect.com/science/article/pii/S1569843225001402)_
