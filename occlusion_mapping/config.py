@@ -88,8 +88,8 @@ def create_occlusion_mapping_config(config_file):
 
         ### bounds: check if xyz_bounds provided
         if cfg["aoi_kwargs"]["xyz_bounds"] is not None:
-            cfg["aoi_kwargs"]["xyz_bounds"] = np.array(cfg["aoi_kwargs"]["xyz_bounds"])  # convert to np.array
-            print("xyz_bounds:", cfg["aoi_kwargs"]["xyz_bounds"])
+            xyz_bounds = np.array(cfg["aoi_kwargs"]["xyz_bounds"])  # convert to np.array
+            cfg["aoi_kwargs"]["xyz_bounds"] = xyz_bounds
 
         else:  # calculate xyz bounds from aoi
             check_file_exists(cfg["aoi_kwargs"]["aoi_polygon"]["aoi_path"]) 
