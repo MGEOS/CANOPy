@@ -330,24 +330,24 @@ def occlusion_classification(cfg):
     occlusion_coordinate = extend_trajectory_to_height(start_coordinate, end_coordinate, 0)
 
 
-    ### [ OPTIONAL ] calculate factor to reduce floating point precision error (e.g. for cell_size = 0.1)
-    # take care, when passing factored valeus to voxel traversal, factored boundaries will be returned -> divide boundary resulty by factor
+    ### [ OPTIONAL ] calculate scaling factor to reduce floating point precision error (e.g. for cell_size = 0.1)
+    # take care, when passing factored values to voxel traversal, factored boundaries will be returned -> divide boundary resulty by factor
     decimals_cell_size = nb_float_to_string(cell_size)[::-1].find('.')  # number of float decimals
 
     if decimals_cell_size == -1:
         decimals_cell_size = 0
 
-    # factor
-    factor = 10**decimals_cell_size
+    # scaling factor
+    scaling_factor = 10**decimals_cell_size
 
     # scale bounds
-    cell_size_f = np.round(cell_size * factor)
-    xyz_bounds_f = np.round(xyz_bounds * factor)
+    cell_size_f = np.round(cell_size * scaling_factor)
+    xyz_bounds_f = np.round(xyz_bounds * scaling_factor)
 
     # scale coordinates
-    start_coordinate *= factor  # replace
-    end_coordinate *= factor  # replace
-    occlusion_coordinate *= factor  # replace
+    start_coordinate *= scaling_factor  # replace
+    end_coordinate *= scaling_factor  # replace
+    occlusion_coordinate *= scaling_factor  # replace
 
 
 
@@ -407,7 +407,7 @@ def occlusion_classification(cfg):
 
     
     print("Occlusion classification complete.")
-    return storage_classification, boundary / factor
+    return storage_classification, boundary / scaling_factor
 
 def main():
 
