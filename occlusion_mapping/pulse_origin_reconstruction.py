@@ -23,6 +23,7 @@ import sys
 import numpy as np
 import geopandas as gpd
 import argparse
+from numba import jit
 
 
 ### include modules from parent directories
@@ -35,6 +36,7 @@ from CANOPy.occlusion_mapping.config import create_pulse_origin_reconstruction_c
 from CANOPy.geos_utils.geodata_tb.point_cloud_tb import read_las
 
 
+@jit(nopython=True, cache=True)
 def extend_trajectory_to_height(first_return, last_return, height):
     """Extends the trajectory of a LiDAR pulse to a specified height.
     
